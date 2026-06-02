@@ -119,3 +119,32 @@ function anyma_default_menu() {
 	}
 	echo '</ul>';
 }
+
+/**
+ * Add a body class on templates that carry a full-screen hero,
+ * so the header can render with a transparent/light variant.
+ *
+ * @param array $classes Existing body classes.
+ * @return array
+ */
+function anyma_body_classes( $classes ) {
+	if ( is_front_page() || is_page_template( 'front-page.php' ) ) {
+		$classes[] = 'has-hero';
+	}
+	return $classes;
+}
+add_filter( 'body_class', 'anyma_body_classes' );
+
+/**
+ * Render a star rating string (5 chars), filled count given.
+ *
+ * @param int $filled Filled stars.
+ * @return string
+ */
+function anyma_stars( $filled = 5 ) {
+	$out = '<span class="stars" aria-label="' . esc_attr( $filled ) . '/5">';
+	for ( $i = 1; $i <= 5; $i++ ) {
+		$out .= '<span class="star' . ( $i <= $filled ? ' filled' : '' ) . '">&#9733;</span>';
+	}
+	return $out . '</span>';
+}
