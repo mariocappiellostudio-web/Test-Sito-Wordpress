@@ -1,69 +1,90 @@
 <?php
-/**
- * Template Name: Recensioni
- *
- * @package ANyMA
- */
-
+/* Template Name: Recensioni */
 get_header();
-$con_url = home_url( '/contatti' );
+$score  = anyma_get_mod('anyma_review_score','9.8');
+$count  = absint(get_theme_mod('anyma_review_count',47));
+$badge  = anyma_get_mod('anyma_review_badge','Ospitalità Eccezionale');
 ?>
 
-<section class="section section-light" style="padding-top:calc(var(--header-h) + var(--space-lg));">
-	<div class="container rating-header reveal">
-		<span class="eyebrow"><?php esc_html_e( 'Recensioni', 'anyma' ); ?></span>
-		<div class="rating-score">9.8<span style="font-size:1.6rem;color:var(--color-muted);">/10</span></div>
-		<?php echo anyma_stars( 5 ); // phpcs:ignore WordPress.Security.EscapeOutput ?>
-		<p class="rating-label"><?php esc_html_e( 'Ospitalità Eccezionale', 'anyma' ); ?></p>
+<main id="main" class="site-main page-reviews">
 
-		<div class="review-chips" role="group" aria-label="<?php esc_attr_e( 'Filtra recensioni', 'anyma' ); ?>">
-			<button class="chip is-active" data-filter="all"><?php esc_html_e( 'Tutti', 'anyma' ); ?></button>
-			<button class="chip" data-filter="booking">Booking</button>
-			<button class="chip" data-filter="airbnb">Airbnb</button>
-			<button class="chip" data-filter="5"><?php esc_html_e( '5 stelle', 'anyma' ); ?></button>
-			<button class="chip" data-filter="4"><?php esc_html_e( '4 stelle', 'anyma' ); ?></button>
-		</div>
-	</div>
+  <section class="page-hero page-hero--sm" aria-label="Recensioni" style="background-image:url('https://images.unsplash.com/photo-1499793983690-e29da59ef1c2?w=1600&q=80')">
+    <div class="page-hero__overlay" aria-hidden="true"></div>
+    <div class="container page-hero__content">
+      <nav class="breadcrumb" aria-label="Breadcrumb"><a href="<?php echo esc_url(home_url('/')); ?>">Home</a><span aria-hidden="true">/</span><span aria-current="page"><?php esc_html_e('Recensioni','anyma'); ?></span></nav>
+      <h1 class="page-hero__title"><?php esc_html_e('Recensioni','anyma'); ?></h1>
+      <div class="reviews-hero-score">
+        <span class="reviews-hero-score__num"><?php echo esc_html($score); ?></span>
+        <div>
+          <span class="trust-stars"><?php echo anyma_stars(5); ?></span>
+          <span class="reviews-hero-score__label"><?php echo esc_html($badge); ?> · <?php printf(esc_html__('%d recensioni','anyma'),$count); ?></span>
+        </div>
+      </div>
+    </div>
+  </section>
 
-	<div class="container">
-		<div class="reviews-page-grid">
-			<?php
-			$reviews = array(
-				array( 5, 'booking', 'Giulia &amp; Marco', '🇮🇹 Milano', 'Set 2024', __( 'Un angolo di paradiso. La vista al risveglio toglie il fiato e il borgo è di una tranquillità rara. Torneremo sicuramente.', 'anyma' ), __( 'Grazie di cuore Giulia e Marco! Vi aspettiamo per un nuovo soggiorno.', 'anyma' ) ),
-				array( 5, 'airbnb', 'Sophie &amp; Tom', '🇬🇧 London', 'Aug 2024', __( 'Perfect romantic getaway. Spotless, tasteful and just two steps from the sea. The host was incredibly kind.', 'anyma' ), '' ),
-				array( 5, 'booking', 'Francesca', '🇮🇹 Torino', 'Lug 2024', __( 'Accoglienza impeccabile e una posizione da sogno. Consigliato a chi cerca pace e mare autentico.', 'anyma' ), '' ),
-				array( 5, 'airbnb', 'Lukas &amp; Anna', '🇩🇪 München', 'Jun 2024', __( 'Wunderschöne Wohnung mit Meerblick. Alles war sauber, ruhig und sehr stilvoll eingerichtet. Sehr zu empfehlen!', 'anyma' ), __( 'Vielen Dank! It was a pleasure hosting you.', 'anyma' ) ),
-				array( 4, 'booking', 'Davide', '🇮🇹 Roma', 'Giu 2024', __( 'Appartamento curato e romantico. Unico piccolo neo il parcheggio non incluso, ma la vista compensa tutto.', 'anyma' ), '' ),
-				array( 5, 'airbnb', 'Claire', '🇫🇷 Lyon', 'Mai 2024', __( 'Un séjour magique. La vue sur le golfe est à couper le souffle et le village est authentique. Merci pour tout!', 'anyma' ), '' ),
-				array( 5, 'booking', 'Elena &amp; Paolo', '🇮🇹 Napoli', 'Apr 2024', __( 'Pur essendo campani, ci siamo sentiti in vacanza vera. Silenzio, mare e dettagli che fanno la differenza.', 'anyma' ), __( 'Che bello avervi avuti come ospiti, grazie!', 'anyma' ) ),
-				array( 4, 'airbnb', 'James', '🇺🇸 New York', 'Mar 2024', __( 'Charming and cozy place steps from the marina. Loved waking up to the sea breeze. Would visit again.', 'anyma' ), '' ),
-				array( 5, 'booking', 'Marta', '🇪🇸 Madrid', 'Feb 2024', __( 'Un rincón mediterráneo perfecto para desconectar. Limpieza impecable y anfitriones encantadores.', 'anyma' ), '' ),
-			);
-			foreach ( $reviews as $r ) :
-				?>
-				<article class="review-card" data-platform="<?php echo esc_attr( $r[1] ); ?>" data-stars="<?php echo (int) $r[0]; ?>">
-					<?php echo anyma_stars( (int) $r[0] ); // phpcs:ignore WordPress.Security.EscapeOutput ?>
-					<p class="review-text">&ldquo;<?php echo esc_html( $r[5] ); ?>&rdquo;</p>
-					<div class="review-meta">
-						<div>
-							<span class="review-author"><?php echo wp_kses_post( $r[2] ); ?></span><br>
-							<span class="review-origin"><?php echo esc_html( $r[3] ); ?> &middot; <?php echo esc_html( $r[4] ); ?></span>
-						</div>
-						<span class="platform-badge <?php echo esc_attr( $r[1] ); ?>"><?php echo esc_html( ucfirst( $r[1] ) ); ?></span>
-					</div>
-					<?php if ( ! empty( $r[6] ) ) : ?>
-						<div class="host-reply"><strong><?php esc_html_e( 'Risposta di ANyMA:', 'anyma' ); ?></strong> <?php echo esc_html( $r[6] ); ?></div>
-					<?php endif; ?>
-				</article>
-			<?php endforeach; ?>
-		</div>
-	</div>
-</section>
+  <section class="section" aria-label="Tutte le recensioni">
+    <div class="container">
 
-<section class="cta-banner reveal">
-	<h2><?php esc_html_e( 'Vivi anche tu la tua storia ad ANyMA', 'anyma' ); ?></h2>
-	<a class="btn btn-gold btn-lg" href="<?php echo esc_url( $con_url ); ?>"><?php esc_html_e( 'Prenota ora', 'anyma' ); ?></a>
-</section>
+      <div class="gallery-filters" data-reveal>
+        <button class="filter-btn filter-btn--active" data-filter="all"><?php esc_html_e('Tutte','anyma'); ?></button>
+        <button class="filter-btn" data-filter="booking">Booking.com</button>
+        <button class="filter-btn" data-filter="airbnb">Airbnb</button>
+        <button class="filter-btn" data-filter="direct"><?php esc_html_e('Diretto','anyma'); ?></button>
+      </div>
 
-<?php
-get_footer();
+      <div class="reviews-grid reviews-grid--full" id="reviews-grid" data-reveal>
+        <?php
+        $reviews = get_posts(['post_type'=>'anyma_review','posts_per_page'=>-1,'orderby'=>'date','order'=>'DESC']);
+        if ($reviews):
+          foreach ($reviews as $r):
+            $stars=(int)get_post_meta($r->ID,'anyma_rating',true) ?: 5;
+            $guest=get_post_meta($r->ID,'anyma_guest_name',true) ?: 'Ospite';
+            $origin=get_post_meta($r->ID,'anyma_guest_origin',true);
+            $plat=get_post_meta($r->ID,'anyma_platform',true) ?: 'booking';
+            $reply=get_post_meta($r->ID,'anyma_owner_reply',true); ?>
+          <article class="review-card" data-category="<?php echo esc_attr($plat); ?>">
+            <div class="review-card__stars"><?php echo anyma_stars($stars); ?></div>
+            <blockquote class="review-card__text"><?php echo wp_kses_post(get_the_content(null,false,$r)); ?></blockquote>
+            <footer class="review-card__footer">
+              <div><strong><?php echo esc_html($guest); ?></strong><?php if($origin): ?><span> · <?php echo esc_html($origin); ?></span><?php endif; ?></div>
+              <span class="review-card__platform review-card__platform--<?php echo esc_attr($plat); ?>"><?php echo $plat==='airbnb'?'Airbnb':($plat==='direct'?'Diretto':'Booking.com'); ?></span>
+            </footer>
+            <?php if($reply): ?><div class="review-card__reply"><strong><?php esc_html_e('Risposta dell\'host:','anyma'); ?></strong> <?php echo esc_html($reply); ?></div><?php endif; ?>
+          </article>
+        <?php endforeach;
+        else:
+          $fake=[
+            ['Posto meraviglioso, pulito e con una vista da sogno. Torneremo!','Giulia M.','Milano','booking',5,'Grazie Giulia, vi aspettiamo a braccia aperte!'],
+            ['Absolute gem near the marina. Spotless, cozy and perfectly located.','James T.','London','airbnb',5,''],
+            ['Appartamento curato nei minimi dettagli. Host gentilissimo e disponibile.','Marco R.','Roma','booking',5,''],
+            ['Posizione imbattibile, a due passi dal mare. Consigliatissimo.','Sophie L.','Paris','airbnb',5,''],
+            ['Un angolo di paradiso. Silenzio, mare e ospitalità autentica.','Andrea P.','Torino','direct',5,'Grazie di cuore Andrea!'],
+            ['Perfect for a romantic getaway. Loved every moment.','Anna K.','Berlin','booking',5,''],
+            ['Tutto perfetto, dalle indicazioni all\'accoglienza. 10 e lode.','Francesca D.','Napoli','direct',5,''],
+            ['Stunning sea view and very comfortable. Highly recommend.','Tom B.','Dublin','airbnb',5,''],
+            ['Esperienza autentica, lontano dal turismo di massa. Tornerò.','Luca V.','Firenze','booking',4,''],
+          ];
+          foreach($fake as [$text,$gn,$from,$plat,$st,$reply]): ?>
+          <article class="review-card" data-category="<?php echo esc_attr($plat); ?>">
+            <div class="review-card__stars"><?php echo anyma_stars($st); ?></div>
+            <blockquote class="review-card__text">"<?php echo esc_html($text); ?>"</blockquote>
+            <footer class="review-card__footer">
+              <div><strong><?php echo esc_html($gn); ?></strong> · <span><?php echo esc_html($from); ?></span></div>
+              <span class="review-card__platform review-card__platform--<?php echo esc_attr($plat); ?>"><?php echo $plat==='airbnb'?'Airbnb':($plat==='direct'?'Diretto':'Booking.com'); ?></span>
+            </footer>
+            <?php if($reply): ?><div class="review-card__reply"><strong><?php esc_html_e('Risposta dell\'host:','anyma'); ?></strong> <?php echo esc_html($reply); ?></div><?php endif; ?>
+          </article>
+        <?php endforeach; endif; ?>
+      </div>
+
+      <div class="text-center" style="margin-top:3rem" data-reveal>
+        <a href="<?php echo esc_url(home_url('/disponibilita')); ?>" class="btn btn-gold btn--lg"><?php esc_html_e('Prenota il tuo soggiorno','anyma'); ?> <?php echo anyma_icon('arrow'); ?></a>
+      </div>
+
+    </div>
+  </section>
+
+</main>
+
+<?php get_footer(); ?>

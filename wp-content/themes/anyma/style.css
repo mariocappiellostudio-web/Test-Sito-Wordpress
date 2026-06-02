@@ -2,8 +2,11 @@
 Theme Name: ANyMA Casa Vacanze
 Theme URI: https://casavacanzeanyma.com
 Author: ANyMA
-Description: Tema custom per Casa Vacanze ANyMA - Marina della Lobra, Massa Lubrense
-Version: 1.0.0
+Description: Tema custom conversion-optimized per Casa Vacanze ANyMA - Marina della Lobra, Massa Lubrense. Mobile-first, WordPress Customizer integrato, compatibile con ACF, CF7, Yoast, WooCommerce, WP Rocket.
+Version: 2.0.0
+Requires at least: 6.0
+Tested up to: 6.7
+Requires PHP: 8.0
+License: Private
+Text Domain: anyma
 */
-
-/* All visual styling lives in assets/css/main.css */

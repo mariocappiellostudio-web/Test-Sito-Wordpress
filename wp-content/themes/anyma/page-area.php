@@ -1,108 +1,105 @@
 <?php
-/**
- * Template Name: Zona
- *
- * @package ANyMA
- */
-
+/* Template Name: Zona e Dintorni */
 get_header();
-
-$pin = '<svg class="icon" width="26" height="26" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a7 7 0 0 0-7 7c0 5 7 13 7 13s7-8 7-13a7 7 0 0 0-7-7zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5z"/></svg>';
+$addr = anyma_get_mod('anyma_address','Via Marina della Lobra, Massa Lubrense');
 ?>
 
-<section class="hero-small" style="background-image:linear-gradient(rgba(26,39,68,0.45),rgba(26,39,68,0.55)),url('https://images.unsplash.com/photo-1444084316824-dc26d6657664?auto=format&fit=crop&w=2000&q=80');">
-	<div>
-		<h1><?php esc_html_e( 'Esplora i Dintorni', 'anyma' ); ?></h1>
-		<nav class="breadcrumb" aria-label="breadcrumb">
-			<a href="<?php echo esc_url( home_url( '/' ) ); ?>"><?php esc_html_e( 'Home', 'anyma' ); ?></a> &rsaquo; <span><?php esc_html_e( 'Zona', 'anyma' ); ?></span>
-		</nav>
-	</div>
-</section>
+<main id="main" class="site-main page-area">
 
-<!-- DISTANZE -->
-<section class="section section-light">
-	<div class="container">
-		<div class="section-head text-center reveal">
-			<span class="eyebrow"><?php esc_html_e( 'A portata di mano', 'anyma' ); ?></span>
-			<h2 class="section-title"><?php esc_html_e( 'Distanze', 'anyma' ); ?></h2>
-		</div>
-		<div class="distances-row reveal">
-			<?php
-			$distances = array(
-				array( __( 'Spiaggia', 'anyma' ), '2 min' ),
-				array( __( 'Porto', 'anyma' ), '1 min' ),
-				array( __( 'Ristoranti', 'anyma' ), '2 min' ),
-				array( 'Sorrento', '20 min' ),
-				array( 'Napoli', '45 min' ),
-				array( __( 'Capri (traghetto)', 'anyma' ), '30 min' ),
-			);
-			foreach ( $distances as $d ) {
-				echo '<div class="distance-item">' . $pin . '<span class="place">' . esc_html( $d[0] ) . '</span><span class="time">' . esc_html( $d[1] ) . '</span></div>'; // phpcs:ignore WordPress.Security.EscapeOutput
-			}
-			?>
-		</div>
-	</div>
-</section>
+  <section class="page-hero" aria-label="Zona" style="background-image:url('https://images.unsplash.com/photo-1534445867742-43195f401b6c?w=1600&q=80')">
+    <div class="page-hero__overlay" aria-hidden="true"></div>
+    <div class="container page-hero__content">
+      <nav class="breadcrumb" aria-label="Breadcrumb"><a href="<?php echo esc_url(home_url('/')); ?>">Home</a><span aria-hidden="true">/</span><span aria-current="page"><?php esc_html_e('Zona & Dintorni','anyma'); ?></span></nav>
+      <h1 class="page-hero__title"><?php esc_html_e('Zona & Dintorni','anyma'); ?></h1>
+      <p class="page-hero__sub"><?php esc_html_e('Marina della Lobra: il cuore autentico della Penisola Sorrentina','anyma'); ?></p>
+    </div>
+  </section>
 
-<!-- COSA FARE -->
-<section class="section section-sand">
-	<div class="container">
-		<div class="section-head text-center reveal">
-			<span class="eyebrow"><?php esc_html_e( 'Esperienze', 'anyma' ); ?></span>
-			<h2 class="section-title"><?php esc_html_e( 'Cosa fare', 'anyma' ); ?></h2>
-		</div>
-		<div class="activities-grid">
-			<?php
-			$activities = array(
-				array( 'ph-1', __( 'Escursioni in Barca', 'anyma' ), __( 'Capri, Positano, Amalfi e la celebre Grotta Azzurra: la costa più bella del mondo dal mare.', 'anyma' ) ),
-				array( 'ph-6', __( 'Trekking', 'anyma' ), __( 'Il Sentiero di Athena e la spettacolare discesa verso la Baia di Ieranto.', 'anyma' ) ),
-				array( 'ph-3', __( 'Snorkeling', 'anyma' ), __( 'Le acque cristalline della Riserva Marina di Punta Campanella.', 'anyma' ) ),
-				array( 'ph-2', __( 'Spiagge', 'anyma' ), __( 'Lobra, San Montano, Recommone e Marina del Cantone: calette per ogni gusto.', 'anyma' ) ),
-			);
-			foreach ( $activities as $a ) :
-				?>
-				<article class="activity-card reveal">
-					<div class="activity-media <?php echo esc_attr( $a[0] ); ?>"></div>
-					<div class="activity-body">
-						<h3><?php echo esc_html( $a[1] ); ?></h3>
-						<p><?php echo esc_html( $a[2] ); ?></p>
-					</div>
-				</article>
-			<?php endforeach; ?>
-		</div>
-	</div>
-</section>
+  <!-- DISTANCES -->
+  <section class="section section-light" aria-label="Distanze">
+    <div class="container">
+      <div class="distance-chips" data-reveal>
+        <?php
+        $dists=[
+          ['beach','Spiaggia','2 min'],['pin','Porto','1 min'],['boat','Capri','30 min'],
+          ['map','Sorrento','20 min'],['map','Positano','40 min'],['map','Napoli','45 min'],['shop','Centro','5 min'],
+        ];
+        foreach($dists as [$ic,$lbl,$d]): ?>
+          <span class="chip"><?php echo anyma_icon($ic); ?><strong><?php echo esc_html($d); ?></strong> <?php echo esc_html($lbl); ?></span>
+        <?php endforeach; ?>
+      </div>
+    </div>
+  </section>
 
-<!-- COME ARRIVARE (tabs) -->
-<section class="section section-light">
-	<div class="container">
-		<div class="section-head text-center reveal">
-			<span class="eyebrow"><?php esc_html_e( 'Informazioni', 'anyma' ); ?></span>
-			<h2 class="section-title"><?php esc_html_e( 'Come arrivare', 'anyma' ); ?></h2>
-		</div>
-		<div class="tabs reveal">
-			<div class="tab-buttons" role="tablist">
-				<button class="tab-btn is-active" data-tab="car" role="tab"><?php esc_html_e( 'In auto', 'anyma' ); ?></button>
-				<button class="tab-btn" data-tab="train" role="tab"><?php esc_html_e( 'In treno', 'anyma' ); ?></button>
-				<button class="tab-btn" data-tab="plane" role="tab"><?php esc_html_e( 'In aereo', 'anyma' ); ?></button>
-				<button class="tab-btn" data-tab="ferry" role="tab"><?php esc_html_e( 'In traghetto', 'anyma' ); ?></button>
-			</div>
-			<div class="tab-panel is-active" data-panel="car"><p><?php esc_html_e( 'Dall\'autostrada A3 Napoli–Salerno, uscita Castellammare di Stabia. Proseguite sulla SS145 Sorrentina fino a Massa Lubrense e seguite le indicazioni per Marina della Lobra. Parcheggio in zona disponibile a €20/giorno.', 'anyma' ); ?></p></div>
-			<div class="tab-panel" data-panel="train"><p><?php esc_html_e( 'Circumvesuviana da Napoli fino a Sorrento (circa 70 min), poi autobus EAV per Massa Lubrense. Vi attendiamo a pochi minuti dalla fermata.', 'anyma' ); ?></p></div>
-			<div class="tab-panel" data-panel="plane"><p><?php esc_html_e( 'Aeroporto di Napoli Capodichino (NAP). Da lì autobus Curreri diretto a Sorrento, oppure transfer privato fino a Marina della Lobra (circa 50 min).', 'anyma' ); ?></p></div>
-			<div class="tab-panel" data-panel="ferry"><p><?php esc_html_e( 'Aliscafi e traghetti collegano Napoli e Sorrento a Capri e alla Costiera. Dal porto di Sorrento raggiungete Marina della Lobra in circa 20 minuti.', 'anyma' ); ?></p></div>
-		</div>
-	</div>
-</section>
+  <!-- THINGS TO DO -->
+  <section class="section" aria-label="Cosa fare">
+    <div class="container">
+      <div class="section-head text-center" data-reveal>
+        <p class="eyebrow"><?php esc_html_e('Esperienze','anyma'); ?></p>
+        <h2 class="section-title"><?php esc_html_e('Cosa fare in zona','anyma'); ?></h2>
+      </div>
+      <div class="todo-grid" data-reveal>
+        <?php
+        $todos=[
+          ['snorkel','Snorkeling & Mare','Esplora l\'Area Marina Protetta di Punta Campanella, acque cristalline e fondali ricchi di vita.'],
+          ['boat','Gita a Capri','Dal porto di Lobra raggiungi Capri, Positano e la Costiera in traghetto o gozzo privato.'],
+          ['hiking','Trekking','Sentieri panoramici verso Punta Campanella e la Baia di Ieranto, tra mito e natura.'],
+          ['breakfast','Sapori locali','Ristoranti di pesce, limoncello artigianale e la vera cucina della Penisola Sorrentina.'],
+        ];
+        foreach($todos as $i=>[$ic,$t,$d]): ?>
+          <article class="todo-card" data-reveal data-delay="<?php echo $i*100; ?>">
+            <span class="todo-card__icon"><?php echo anyma_icon($ic); ?></span>
+            <h3 class="todo-card__title"><?php echo esc_html($t); ?></h3>
+            <p><?php echo esc_html($d); ?></p>
+          </article>
+        <?php endforeach; ?>
+      </div>
+    </div>
+  </section>
 
-<!-- MAPPA -->
-<section class="section section-sand">
-	<div class="container">
-		<div class="map-placeholder reveal" role="img" aria-label="<?php esc_attr_e( 'Mappa dei punti di interesse', 'anyma' ); ?>">
-			<span class="map-pin"><svg width="56" height="56" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a7 7 0 0 0-7 7c0 5 7 13 7 13s7-8 7-13a7 7 0 0 0-7-7zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5z"/></svg></span>
-		</div>
-	</div>
-</section>
+  <!-- HOW TO ARRIVE TABS -->
+  <section class="section section-sand" aria-label="Come arrivare">
+    <div class="container">
+      <div class="section-head text-center" data-reveal>
+        <h2 class="section-title"><?php esc_html_e('Come arrivare','anyma'); ?></h2>
+      </div>
+      <div class="tabs" data-reveal>
+        <div class="tabs__nav" role="tablist">
+          <button class="tab-btn tab-btn--active" data-tab="auto" role="tab"><?php echo anyma_icon('car'); ?> <?php esc_html_e('In auto','anyma'); ?></button>
+          <button class="tab-btn" data-tab="treno" role="tab"><?php echo anyma_icon('map'); ?> <?php esc_html_e('In treno','anyma'); ?></button>
+          <button class="tab-btn" data-tab="aereo" role="tab"><?php echo anyma_icon('boat'); ?> <?php esc_html_e('In aereo','anyma'); ?></button>
+          <button class="tab-btn" data-tab="traghetto" role="tab"><?php echo anyma_icon('boat'); ?> <?php esc_html_e('In traghetto','anyma'); ?></button>
+        </div>
+        <div class="tabs__panels">
+          <div class="tab-panel tab-panel--active" data-panel="auto" role="tabpanel"><p><?php esc_html_e('Da Napoli prendi la A3 verso Salerno, esci a Castellammare di Stabia e segui la SS145 verso Sorrento e Massa Lubrense. Circa 45 minuti.','anyma'); ?></p></div>
+          <div class="tab-panel" data-panel="treno" role="tabpanel"><p><?php esc_html_e('Dalla stazione di Napoli prendi la Circumvesuviana fino a Sorrento, poi autobus SITA o taxi fino a Marina della Lobra.','anyma'); ?></p></div>
+          <div class="tab-panel" data-panel="aereo" role="tabpanel"><p><?php esc_html_e('L\'aeroporto di Napoli-Capodichino dista circa 50 km. Da lì auto a noleggio, transfer privato o bus Curreri fino a Sorrento.','anyma'); ?></p></div>
+          <div class="tab-panel" data-panel="traghetto" role="tabpanel"><p><?php esc_html_e('Aliscafi e traghetti collegano Napoli e Capri a Sorrento. Dal porto di Sorrento sei a 20 minuti dall\'appartamento.','anyma'); ?></p></div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-<?php
-get_footer();
+  <!-- MAP -->
+  <section class="section" aria-label="Mappa">
+    <div class="container">
+      <div class="map-placeholder map-placeholder--lg" data-reveal role="img" aria-label="Mappa di <?php echo esc_attr($addr); ?>">
+        <span class="map-pin-anim" aria-hidden="true"><?php echo anyma_icon('pin'); ?></span>
+        <p class="map-placeholder__label"><?php echo esc_html($addr); ?></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta-banner section" aria-label="Prenota">
+    <div class="container cta-banner__inner" data-reveal>
+      <h2 class="cta-banner__title"><?php esc_html_e('Pronto a partire?','anyma'); ?></h2>
+      <div class="cta-banner__btns">
+        <a href="<?php echo esc_url(home_url('/disponibilita')); ?>" class="btn btn-gold btn--lg"><?php esc_html_e('Controlla disponibilità','anyma'); ?> <?php echo anyma_icon('arrow'); ?></a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<?php get_footer(); ?>
